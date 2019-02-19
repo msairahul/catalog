@@ -1,0 +1,73 @@
+{% extends "main.html" %}
+{% block content %}
+<nav class="navbar navbar-inverse" style="border-radius: 0; height: 70px;">
+  <div class="container-fluid">
+    <div class="navbar-header">
+     <a style="font-size: 30px; padding-top: 25px;" class="navbar-brand" href="{{url_for('home')}}">E-Bazaar</a>
+    </div>
+  </div>
+ </nav>
+<div class="divider">
+		<div class="col-md-12"></div>
+</div>
+<div class="banner menu">
+		<div class="col-md-11 col-md-offset-1 padding-none">
+			<h1>{{ store.name }}
+			<figure class="creator">
+				<img src="{{ creator.picture}}">
+				<figcaption>{{ creator.name }}</figcaption>
+			</figure>
+			</h1>
+
+		</div>
+	</div>
+
+
+ <div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			{% with messages = get_flashed_messages() %}
+				{% if messages %}
+					<ul>
+						{% for message in messages %}
+							 <li> <strong> {{ message }} </strong> </li>
+						{% endfor %}
+					</ul>
+				{% endif %}
+			{% endwith %}
+		</div>
+	</div>
+</div>
+{% if list !=[] %}
+
+	
+	 <div class="container" style="margin-top: 20px; margin-bottom: 50px;">
+		<div class="row">
+			{% for j in newlist %}
+				<div class="col-md-3" style="margin-left: 0px; width: 350px;">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h2><b>{{ j }}</b></h2>
+			 				{% for i in list %}
+		    					{% if i.goodtype == j %}
+						</div>
+						<div class="panel-body">					
+							<div style="margin: 20px;" class="goods-list">
+								<h3 style="text-transform:capitalize;">{{i.name}}</h3>
+								<p style="text-transform: capitalize;">{{i.model}}</p>
+								<p style="font-size: 15px;" class="goods-price">${{i.price}}</p>
+							</div>
+								{% endif %}
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>	
+	</div>
+
+			
+	{% endif %}
+
+
+{% endblock %}

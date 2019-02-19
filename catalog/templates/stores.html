@@ -1,0 +1,57 @@
+{% extends "main.html" %}
+{% block content %}
+
+<nav class="navbar navbar-inverse" style="border-radius: 0; height: 70px;">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a style="font-size: 30px; padding-top: 25px;" class="navbar-brand" href="{{url_for('home')}}">E-Bazaar</a>
+    </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+        {%if 'username' not in session %}<a style="font-size:30px; padding-top: 25px;" href="{{url_for('showLogin')}}"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+        {% else %}
+        <a style="font-size: 25px; padding-top: 20px;" href="{{url_for('disconnect')}}"><span class="glyphicon glyphicon-log-out"></span>
+        Logout</a>
+        {% endif %}
+        </li>
+      </ul>
+  </div>
+</nav>
+
+<div class="row banner menu" style="margin:0; padding: 0;">
+  <div class="col-md-11 col-md-offset-1 padding-none">
+<h1 style="text-align: center;font-size:50px;"><b>Stores</b></h1>
+
+  <div class = 'flash'>
+          {% with messages = get_flashed_messages() %}
+      {% if messages %}
+          
+        <ul>
+        {% for message in messages %}
+            <li> <strong> {{ message }} </strong> </li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+
+</div>
+
+
+<div style="margin-left: 50px; margin-top: 100px;" class="container">
+<div class="row">
+{% for store in stores %}
+		<a href = "{{url_for('showGoods', store_id = store.id)}}">
+			
+					<div style="text-align: center;margin:6px;" class="col-lg-5 store-list">
+						<h3>{{store.name}}</h3>
+					</div>
+		</a>
+	{% endfor %}
+  </div>
+</div>
+
+
+
+
+  
+{% endblock %}
